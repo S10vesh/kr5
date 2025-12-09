@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-канбан доска</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> Мини-канбан доска</h1>
+            <p class="subtitle">Управление задачами с использованием Express.js API</p>
+        </header>
+
+        <div class="controls">
+            <button id="addTaskBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Добавить задачу
+            </button>
+            <div class="stats">
+                <span id="totalTasks">Всего задач: 0</span>
+            </div>
+        </div>
+
+        <div class="kanban-board">
+            <div class="column" data-status="todo">
+                <div class="column-header">
+                    <h2><i class="fas fa-clipboard-list"></i> К выполнению</h2>
+                    <span class="task-count" id="todo-count">0</span>
+                </div>
+                <div class="tasks" id="todo-tasks"></div>
+            </div>
+
+            <div class="column" data-status="in-progress">
+                <div class="column-header">
+                    <h2><i class="fas fa-spinner"></i> В процессе</h2>
+                    <span class="task-count" id="in-progress-count">0</span>
+                </div>
+                <div class="tasks" id="in-progress-tasks"></div>
+            </div>
+
+            <div class="column" data-status="done">
+                <div class="column-header">
+                    <h2><i class="fas fa-check-circle"></i> Выполнено</h2>
+                    <span class="task-count" id="done-count">0</span>
+                </div>
+                <div class="tasks" id="done-tasks"></div>
+            </div>
+        </div>
+
+        <div class="api-info">
+            <h3><i class="fas fa-code"></i> API Endpoints</h3>
+            <div class="endpoints">
+                <div class="endpoint">
+                    <code>GET /api/tasks</code>
+                    <span>Получить все задачи</span>
+                </div>
+                <div class="endpoint">
+                    <code>GET /api/tasks/:id</code>
+                    <span>Получить задачу по ID</span>
+                </div>
+                <div class="endpoint">
+                    <code>POST /api/tasks</code>
+                    <span>Создать новую задачу</span>
+                </div>
+                <div class="endpoint">
+                    <code>PUT /api/tasks/:id</code>
+                    <span>Обновить задачу</span>
+                </div>
+                <div class="endpoint">
+                    <code>DELETE /api/tasks/:id</code>
+                    <span>Удалить задачу</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Новая задача</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <input type="hidden" id="taskId">
+                    
+                    <div class="form-group">
+                        <label for="title">Название задачи *</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Описание</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="status">Статус</label>
+                        <select id="status">
+                            <option value="todo">К выполнению</option>
+                            <option value="in-progress">В процессе</option>
+                            <option value="done">Выполнено</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Приоритет</label>
+                        <select id="priority">
+                            <option value="low">Низкий</option>
+                            <option value="medium" selected>Средний</option>
+                            <option value="high">Высокий</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-btn">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
